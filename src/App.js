@@ -97,15 +97,9 @@ function App() {
         </ParallaxLayer>
 
         {/* Water */}
-        <ParallaxLayer offset={1} speed={0} factor={1}>
-          <section className="water">
-            <Remnis className="remnis" />
-          </section>
-        </ParallaxLayer>
-
         <ParallaxLayer
           offset={0.09}
-          speed={0}
+          speed={-0.1}
           style={{
             display: 'flex',
             alignItems: 'flex-end',
@@ -117,7 +111,7 @@ function App() {
 
         <ParallaxLayer
           offset={0.13}
-          speed={0}
+          speed={-0.08}
           style={{
             display: 'flex',
             alignItems: 'flex-end',
@@ -128,7 +122,7 @@ function App() {
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={0.13}
+          offset={0.09}
           speed={0}
           style={{
             display: 'flex',
@@ -137,6 +131,12 @@ function App() {
           }}
         >
           <img src={wave1} className="wave1" alt="sea waves" />
+        </ParallaxLayer>
+
+        <ParallaxLayer offset={1} speed={0} factor={1}>
+          <section className="water">
+            <Remnis className="remnis" />
+          </section>
         </ParallaxLayer>
       </Parallax>
     </div>
