@@ -121,6 +121,7 @@ function App() {
           style={{
             display: 'flex',
             alignItems: 'flex-end',
+            width: '105%',
           }}
         >
           <img src={wave2} className="wave2" alt="sea waves" />

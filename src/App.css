@@ -121,29 +121,50 @@ img {
 }
 
 .wave1 {
-  animation: wave1 20s linear infinite;
-  animation-direction: alternate;
+  animation: wave1 10s linear infinite alternate;
+  will-change: transform;
 }
 
 @keyframes wave1 {
   0% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-2.5%, -5%, 0);
   }
   100% {
-    transform: translate(-5%, 5%);
+    transform: translate3d(-5%, 0, 0);
+  }
+}
+
+.wave2 {
+  animation: wave2 5s linear infinite alternate;
+  will-change: transform;
+}
+
+@keyframes wave2 {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0, -5%, 0);
   }
 }
 
 .wave3 {
-  animation: wave3 10s linear infinite;
-  animation-direction: alternate;
+  animation: wave3 10s linear infinite alternate;
+  will-change: transform;
 }
 
 @keyframes wave3 {
   0% {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-2.5%, -5%, 0);
   }
   100% {
-    transform: translate(-5%, -10%);
+    transform: translate3d(-5%, 0%, 0);
   }
 }
