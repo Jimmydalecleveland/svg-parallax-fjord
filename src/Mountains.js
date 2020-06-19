@@ -17,9 +17,10 @@ const StyledSvg = styled.svg`
   }
 `
 
-function Mountains() {
+function Mountains({ style }) {
   return (
     <StyledSvg
+      style={{ ...style }}
       id="mountains"
       xmlns="http://www.w3.org/2000/svg"
       width="2560"
