@@ -13,6 +13,8 @@ import Cloud2 from './svgComponents/Cloud2'
 import Cloud3 from './svgComponents/Cloud3'
 import Cloud4 from './svgComponents/Cloud4'
 import Cloud5 from './svgComponents/Cloud5'
+import WindTrail from './svgComponents/WindTrail'
+import Trees from './svgComponents/Trees'
 
 const layers = [
   { Component: Cloud2, speed: 0.2 },
@@ -22,8 +24,8 @@ const layers = [
   { Component: Cloud1, speed: 0.3 },
   { Component: Cloud3, speed: 0.3 },
   { Component: Hills, speed: 0.6 },
-  // { Component: Trees, speed: 0.8 },
-  // { Component: WindTrail, speed: 0.7 },
+  { Component: Trees, speed: 0.8 },
+  { Component: WindTrail, speed: 0.7 },
   { Component: Ground, speed: 0.9 },
   { Component: Wave3, speed: 0.9 },
   { Component: Wave2, speed: 0.92 },

@@ -19,7 +19,7 @@ const StyledSvg = styled.svg`
 function Mountains({ style }) {
   return (
     <StyledSvg
-      style={{ ...style }}
+      style={style}
       id="mountains"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 2560 1000">
