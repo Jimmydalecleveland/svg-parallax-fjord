@@ -2,13 +2,12 @@ import * as React from 'react'
 import styled from '@emotion/styled'
 
 const StyledSvg = styled.svg`
-  svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
   .cls-1 {
     fill: #e1eaea;
   }
@@ -23,8 +22,6 @@ function Mountains({ style }) {
       style={{ ...style }}
       id="mountains"
       xmlns="http://www.w3.org/2000/svg"
-      width="2560"
-      height="1000"
       viewBox="0 0 2560 1000">
       <polygon
         className="cls-1"

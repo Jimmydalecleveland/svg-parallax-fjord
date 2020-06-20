@@ -1,8 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import useScrollY from './useScrollY'
 import styled from '@emotion/styled'
 import './App.css'
-import Mountains from './Mountains'
+import Mountains from './svgComponents/Mountains'
+import Hills from './svgComponents/Hills'
+import Ground from './svgComponents/Ground'
+import Wave3 from './svgComponents/Wave3'
+import Wave2 from './svgComponents/Wave2'
+import Wave1 from './svgComponents/Wave1'
+import Cloud1 from './svgComponents/Cloud1'
+import Cloud2 from './svgComponents/Cloud2'
+import Cloud3 from './svgComponents/Cloud3'
+import Cloud4 from './svgComponents/Cloud4'
+import Cloud5 from './svgComponents/Cloud5'
+
+const layers = [
+  { Component: Cloud2, speed: 0.2 },
+  { Component: Cloud5, speed: 0.2 },
+  { Component: Cloud4, speed: 0.2 },
+  { Component: Mountains, speed: 0.3 },
+  { Component: Cloud1, speed: 0.3 },
+  { Component: Cloud3, speed: 0.3 },
+  { Component: Hills, speed: 0.6 },
+  // { Component: Trees, speed: 0.8 },
+  // { Component: WindTrail, speed: 0.7 },
+  { Component: Ground, speed: 0.9 },
+  { Component: Wave3, speed: 0.9 },
+  { Component: Wave2, speed: 0.92 },
+  { Component: Wave1, speed: 1 },
+]
 
 const Foreground = styled.div`
     position: absolute;
@@ -16,7 +42,6 @@ const Foreground = styled.div`
 
 const Background = styled.main`
   background-color: #0087d5;
-  background: ${({ animatingBackground }) => animatingBackground};
   position: fixed;
   width: 2560px;
   height: 1000px;
@@ -37,8 +62,10 @@ function App() {
 
   return (
     <div className="App">
-      <Background animatingBackground={animatingBackground}>
-        <Mountains style={{ transform: `translateY(${-scrollY * 0.3}px)` }} />
+      <Background style={{ background: animatingBackground }}>
+        {layers.map(({ Component, speed }) => {
+          return <Component style={{ transform: `translateY(${-scrollY * speed}px)` }} />
+        })}
       </Background>
       <Foreground />
     </div>

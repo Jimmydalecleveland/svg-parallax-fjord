@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useScrollY = () => {
+function useScrollY() {
   const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
