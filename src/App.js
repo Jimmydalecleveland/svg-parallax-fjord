@@ -17,19 +17,19 @@ import WindTrail from './svgComponents/WindTrail'
 import Trees from './svgComponents/Trees'
 
 const layers = [
-  { Component: Cloud2, speed: 0.2 },
-  { Component: Cloud5, speed: 0.2 },
-  { Component: Cloud4, speed: 0.2 },
-  { Component: Mountains, speed: 0.3 },
-  { Component: Cloud1, speed: 0.3 },
-  { Component: Cloud3, speed: 0.3 },
-  { Component: Hills, speed: 0.6 },
-  { Component: Trees, speed: 0.8 },
-  { Component: WindTrail, speed: 0.7 },
-  { Component: Ground, speed: 0.9 },
-  { Component: Wave3, speed: 0.9 },
-  { Component: Wave2, speed: 0.92 },
-  { Component: Wave1, speed: 1 },
+  { id: "1", Component: Cloud2, speed: 0.2 },
+  { id: "2", Component: Cloud5, speed: 0.2 },
+  { id: "3", Component: Cloud4, speed: 0.2 },
+  { id: "4", Component: Mountains, speed: 0.3 },
+  { id: "5", Component: Cloud1, speed: 0.3 },
+  { id: "6", Component: Cloud3, speed: 0.3 },
+  { id: "7", Component: Hills, speed: 0.6 },
+  { id: "8", Component: Trees, speed: 0.8 },
+  { id: "9", Component: WindTrail, speed: 0.7 },
+  { id: "10", Component: Ground, speed: 0.9 },
+  { id: "11", Component: Wave3, speed: 0.9 },
+  { id: "12", Component: Wave2, speed: 0.92 },
+  { id: "13", Component: Wave1, speed: 1 },
 ]
 
 const Foreground = styled.div`
@@ -65,8 +65,8 @@ function App() {
   return (
     <div className="App">
       <Background style={{ background: animatingBackground }}>
-        {layers.map(({ Component, speed }) => {
-          return <Component style={{ transform: `translateY(${-scrollY * speed}px)` }} />
+        {layers.map(({ id, Component, speed }) => {
+          return <Component key={id} scrollY={scrollY} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
         })}
       </Background>
       <Foreground />
