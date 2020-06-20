@@ -1,7 +1,7 @@
 import React from 'react'
 import useScrollY from './useScrollY'
+import { Global, css } from '@emotion/core'
 import styled from '@emotion/styled'
-import './App.css'
 import Mountains from './svgComponents/Mountains'
 import Hills from './svgComponents/Hills'
 import Ground from './svgComponents/Ground'
@@ -64,6 +64,7 @@ function App() {
 
   return (
     <div className="App">
+      <Global styles={css`body { margin: 0; }`} />
       <Background style={{ background: animatingBackground }}>
         {layers.map(({ id, Component, speed }) => {
           return <Component key={id} scrollY={scrollY} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
