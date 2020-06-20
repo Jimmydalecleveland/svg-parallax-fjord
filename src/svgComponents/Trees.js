@@ -1,5 +1,5 @@
 /* global Snap */
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import styled from '@emotion/styled'
 import treesBlown from '../treesBlown.js'
 import { easeInOutBack, easeOutBack } from '../helpers.js'
@@ -57,10 +57,87 @@ const StyledSvg = styled.svg`
   }
 `
 
-function Trees({ style, scrollY }) {
-  let intervalId
 
+function getDarkAndLightTreePaths(svgElement) {
+  const s = Snap(svgElement)
+  const darkPaths = getTreePaths(s, svgElement.id, 'dark')
+  const lightPaths = getTreePaths(s, svgElement.id, 'light')
+
+  return {
+    darkPaths,
+    lightPaths,
+  }
+}
+
+function blowTree(treePaths, animationTime, animationFunc) {
+  if (!treePaths || !treePaths.darkPaths.fromPath) return
+
+  const { darkPaths, lightPaths } = treePaths
+  animateElement(
+    darkPaths.target,
+    darkPaths.toPath,
+    animationTime,
+    easeOutBack
+  )
+  animateElement(
+    lightPaths.target,
+    lightPaths.toPath,
+    animationTime,
+    easeOutBack,
+    unblowTree
+  )
+
+  function unblowTree() {
+    const { darkPaths, lightPaths } = treePaths
+    animateElement(darkPaths.target, darkPaths.fromPath, 2000, easeInOutBack)
+    animateElement(
+      lightPaths.target,
+      lightPaths.fromPath,
+      2000,
+      easeInOutBack
+    )
+  }
+}
+
+// Move item in array to another position in the array
+// Used to create a few staggered trees for a more natural look
+function arrayMovePosition(arr, indexToMove, newIndex) {
+  if (newIndex > arr.length) return
+  arr.splice(newIndex, 0, arr.splice(indexToMove, 1)[0])
+}
+
+function getTreePaths(snapInstance, elementId, subSelector) {
+  const target = snapInstance.select(`#${elementId}__${subSelector}`)
+  const fromPath = target.attr('d')
+  const toPath = treesBlown[elementId][subSelector]
+
+  return {
+    target,
+    fromPath,
+    toPath,
+  }
+}
+
+function animateElement(
+  snapTarget,
+  toPath,
+  duration,
+  easingFunc,
+  postAnimationCb
+) {
+  snapTarget.animate(
+    {
+      path: toPath,
+    },
+    duration,
+    easingFunc,
+    postAnimationCb
+  )
+}
+
+function Trees({ style, scrollY }) {
   useEffect(() => {
+    let intervalId
     const trees = document.querySelectorAll('.tree')
     console.log({ trees })
     // Turn NodeList into array to get .sort method
@@ -98,84 +175,8 @@ function Trees({ style, scrollY }) {
     return () => {
       clearInterval(intervalId)
     }
-  }, [intervalId])
+  }, [scrollY])
 
-  // Move item in array to another position in the array
-  // Used to create a few staggered trees for a more natural look
-  function arrayMovePosition(arr, indexToMove, newIndex) {
-    if (newIndex > arr.length) return
-    arr.splice(newIndex, 0, arr.splice(indexToMove, 1)[0])
-  }
-
-  function getTreePaths(snapInstance, elementId, subSelector) {
-    const target = snapInstance.select(`#${elementId}__${subSelector}`)
-    const fromPath = target.attr('d')
-    const toPath = treesBlown[elementId][subSelector]
-
-    return {
-      target,
-      fromPath,
-      toPath,
-    }
-  }
-
-  function getDarkAndLightTreePaths(svgElement) {
-    const s = Snap(svgElement)
-    const darkPaths = getTreePaths(s, svgElement.id, 'dark')
-    const lightPaths = getTreePaths(s, svgElement.id, 'light')
-
-    return {
-      darkPaths,
-      lightPaths,
-    }
-  }
-
-  function blowTree(treePaths, animationTime, animationFunc) {
-    if (!treePaths || !treePaths.darkPaths.fromPath) return
-
-    const { darkPaths, lightPaths } = treePaths
-    animateElement(
-      darkPaths.target,
-      darkPaths.toPath,
-      animationTime,
-      easeOutBack
-    )
-    animateElement(
-      lightPaths.target,
-      lightPaths.toPath,
-      animationTime,
-      easeOutBack,
-      unblowTree
-    )
-
-    function unblowTree() {
-      const { darkPaths, lightPaths } = treePaths
-      animateElement(darkPaths.target, darkPaths.fromPath, 2000, easeInOutBack)
-      animateElement(
-        lightPaths.target,
-        lightPaths.fromPath,
-        2000,
-        easeInOutBack
-      )
-    }
-  }
-
-  function animateElement(
-    snapTarget,
-    toPath,
-    duration,
-    easingFunc,
-    postAnimationCb
-  ) {
-    snapTarget.animate(
-      {
-        path: toPath,
-      },
-      duration,
-      easingFunc,
-      postAnimationCb
-    )
-  }
   return (
     <StyledSvg
       style={style}
