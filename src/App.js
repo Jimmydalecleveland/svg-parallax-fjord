@@ -1,7 +1,7 @@
 import React from 'react'
 import useScrollY from './useScrollY'
+import { Global, css } from '@emotion/core'
 import styled from '@emotion/styled'
-import './App.css'
 import Mountains from './svgComponents/Mountains'
 import Hills from './svgComponents/Hills'
 import Ground from './svgComponents/Ground'
@@ -34,21 +34,39 @@ const layers = [
 
 const Foreground = styled.div`
     position: absolute;
-    top: 965px;
+    top: 560px;
     left: 0;
     width: 100%;
     height: 100vh;
     background-color: #37559c;
     color: white;
+
+  @media screen and (min-width: 768px) {
+    top: 666px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    top: 965px;
+  }
 `
 
 const Background = styled.main`
   background-color: #0087d5;
   position: fixed;
-  width: 2560px;
-  height: 1000px;
+  width: 800px; 
+  height: 800px;
   left: 50%;
   transform: translate(-50%, 0);
+
+  @media screen and (min-width: 768px) {
+    width: 1200px;
+    height: 900px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 2560px;
+    height: 1000px;
+  }
 `
 
 function App() {
@@ -63,14 +81,15 @@ function App() {
   // }, [])
 
   return (
-    <div className="App">
+    <>
+      <Global styles={css`body { margin: 0; }`} />
       <Background style={{ background: animatingBackground }}>
         {layers.map(({ id, Component, speed }) => {
           return <Component key={id} scrollY={scrollY} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
         })}
       </Background>
       <Foreground />
-    </div>
+    </>
   )
 }
 
