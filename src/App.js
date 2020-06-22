@@ -66,7 +66,7 @@ function App() {
     <div className="App">
       <Background style={{ background: animatingBackground }}>
         {layers.map(({ id, Component, speed }) => {
-          return <Component key={id} scrollY={scrollY} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
+          return <Component key={id} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
         })}
       </Background>
       <Foreground />

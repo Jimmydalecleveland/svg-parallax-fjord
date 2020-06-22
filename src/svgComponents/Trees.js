@@ -1,5 +1,5 @@
 /* global Snap */
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from '@emotion/styled'
 import treesBlown from '../treesBlown.js'
 import { easeInOutBack, easeOutBack } from '../helpers.js'
@@ -135,11 +135,17 @@ function animateElement(
   )
 }
 
-function Trees({ style, scrollY }) {
+function Trees({ style }) {
+  const svgRef = useRef()
+  const intervalId = useRef()
+
+  /* 
+  * On mount, grab every tree in the svg, sort them,
+  * stagger a few, and set state with all their paths
+  * for future morphing by Snap.
+  */
   useEffect(() => {
-    let intervalId
-    const trees = document.querySelectorAll('.tree')
-    console.log({ trees })
+    const trees = svgRef.current.querySelectorAll('.tree')
     // Turn NodeList into array to get .sort method
     const sortedTrees = [...trees].sort((a, b) => {
       const aIdNumber = Number(a.id.split('tree')[1])
@@ -153,9 +159,15 @@ function Trees({ style, scrollY }) {
 
     // Create an array of objects that contain each trees paths and element target
     const allTreePaths = sortedTrees.map(tree => getDarkAndLightTreePaths(tree))
+    setTimeout(startBlowTrees, 3000)
+
+    function startBlowTrees() {
+      blowTrees()
+      intervalId.current = setInterval(blowTrees, 8000)
+    }
 
     function blowTrees() {
-      if (scrollY > 0) return
+      if (window && window.scrollY > 0) return
 
       let startTime = 0
       allTreePaths.forEach(treePaths => {
@@ -165,20 +177,14 @@ function Trees({ style, scrollY }) {
       })
     }
 
-    function startBlowTrees() {
-      blowTrees()
-      intervalId = setInterval(blowTrees, 8000)
-    }
-
-    setTimeout(startBlowTrees, 3000)
-
     return () => {
-      clearInterval(intervalId)
+      clearInterval(intervalId.current)
     }
-  }, [scrollY])
+  }, [])
 
   return (
     <StyledSvg
+      ref={svgRef}
       style={style}
       id="trees"
       xmlns="http://www.w3.org/2000/svg"
