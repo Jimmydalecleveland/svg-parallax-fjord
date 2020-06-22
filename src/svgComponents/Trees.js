@@ -1,5 +1,5 @@
 /* global Snap */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import treesBlown from '../treesBlown.js'
 import { easeInOutBack, easeOutBack } from '../helpers.js'
