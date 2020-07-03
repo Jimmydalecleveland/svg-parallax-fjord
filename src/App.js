@@ -15,6 +15,11 @@ import Cloud4 from './svgComponents/Cloud4'
 import Cloud5 from './svgComponents/Cloud5'
 import WindTrail from './svgComponents/WindTrail'
 import Trees from './svgComponents/Trees'
+import SeaFloor1 from './svgComponents/SeaFloor1'
+import SeaFloor2 from './svgComponents/SeaFloor2'
+import SeaFloor3 from './svgComponents/SeaFloor3'
+import Sword from './svgComponents/Sword'
+import Sand from './svgComponents/Sand'
 
 const layers = [
   { id: "1", Component: Cloud2, speed: 0.2 },
@@ -32,14 +37,22 @@ const layers = [
   { id: "13", Component: Wave1, speed: 1 },
 ]
 
+const seaLayers = [
+  { Component: SeaFloor3, speed: 0.38 },
+  { Component: SeaFloor2, speed: 0.25 },
+  { Component: SeaFloor1, speed: 0.13 },
+]
+
 const Foreground = styled.div`
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
     top: 560px;
-    left: 0;
     width: 100%;
-    height: 100vh;
+    height: 1700px;
     background-color: #37559c;
-    color: white;
 
   @media screen and (min-width: 768px) {
     top: 666px;
@@ -47,6 +60,10 @@ const Foreground = styled.div`
 
   @media screen and (min-width: 1200px) {
     top: 965px;
+  }
+
+  @media screen and (min-width: 2000px) {
+    height: 2400px;
   }
 `
 
@@ -84,11 +101,15 @@ function App() {
     <>
       <Global styles={css`body { margin: 0; }`} />
       <Background style={{ background: animatingBackground }}>
-        {layers.map(({ id, Component, speed }) => {
-          return <Component key={id} style={{ transform: `translateY(${-scrollY * speed}px)` }} />
-        })}
+        {layers.map(({ id, Component, speed }) =>
+          <Component key={id} style={{ transform: `translateY(${-scrollY * speed}px)` }} />)}
       </Background>
-      <Foreground />
+      <Foreground>
+        {seaLayers.map(({ id, Component, speed }) =>
+          <Component key={id} style={{ transform: `translateY(${scrollY * speed}px)` }} />)}
+        <Sword />
+        <Sand />
+      </Foreground>
     </>
   )
 }
