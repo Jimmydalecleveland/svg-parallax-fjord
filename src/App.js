@@ -61,6 +61,10 @@ const Foreground = styled.div`
   @media screen and (min-width: 1200px) {
     top: 965px;
   }
+
+  @media screen and (min-width: 2000px) {
+    height: 2400px;
+  }
 `
 
 const Background = styled.main`
