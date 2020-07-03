@@ -1,20 +1,8 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { keyframes } from '@emotion/core'
 
-const SwordAnimator = styled.div`
-    position: absolute;
-    bottom: -20px;
-    cursor: pointer;
-
-  &.sword-free {
-    animation: freeSword 3s linear forwards;
-  }
-
-  &.sword-free > svg {
-    animation: swingSword 3s linear forwards;
-  }
-
-  @keyframes freeSword {
+const freeSword = keyframes`
     27% {
       transform: translate(0);
       animation-timing-function: cubic-bezier(0.9, 0.03, 0.69, 0.22);
@@ -29,9 +17,9 @@ const SwordAnimator = styled.div`
     100% {
       transform: translate(0, -30%);
     }
-  }
+`
 
-  @keyframes swingSword {
+const swingSword = keyframes`
     5% {
       transform: rotate(-4deg);
       animation-timing-function: linear;
@@ -59,8 +47,20 @@ const SwordAnimator = styled.div`
       transform-origin: top;
       transform: rotate(189deg);
     }
+`
+
+const SwordAnimator = styled.div`
+    position: absolute;
+    bottom: -20px;
+    cursor: pointer;
+
+  &.sword-free {
+    animation: ${freeSword} 3s linear forwards;
   }
 
+  &.sword-free > svg {
+    animation: ${swingSword} 3s linear forwards;
+  }
 `
 
 const StyledSvg = styled.svg`

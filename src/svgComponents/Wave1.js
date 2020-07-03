@@ -1,8 +1,21 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
+import { keyframes } from '@emotion/core'
+
+const wave = keyframes`
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-1%, -2%, 0);
+  }
+  100% {
+    transform: translate3d(-2%, 0, 0);
+  }
+`
 
 const StyledSvg = styled.svg`
-  animation: wave1 10s ease-in-out infinite alternate;
+  animation: ${wave} 10s ease-in-out infinite alternate;
 
   width: 1000px;
   height: 880px;
@@ -19,18 +32,6 @@ const StyledSvg = styled.svg`
 
   .cls-1 {
     fill: #37559c;
-  }
-
-  @keyframes wave1 {
-    0% {
-      transform: translate3d(0, 0, 0);
-    }
-    50% {
-      transform: translate3d(-1%, -2%, 0);
-    }
-    100% {
-      transform: translate3d(-2%, 0, 0);
-    }
   }
 `
 
