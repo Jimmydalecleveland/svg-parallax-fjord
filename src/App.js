@@ -16,6 +16,10 @@ import Cloud5 from './svgComponents/Cloud5'
 import WindTrail from './svgComponents/WindTrail'
 import Trees from './svgComponents/Trees'
 import SeaFloor1 from './svgComponents/SeaFloor1'
+import SeaFloor2 from './svgComponents/SeaFloor2'
+import SeaFloor3 from './svgComponents/SeaFloor3'
+import Sword from './svgComponents/Sword'
+import Sand from './svgComponents/Sand'
 
 const layers = [
   { id: "1", Component: Cloud2, speed: 0.2 },
@@ -34,8 +38,8 @@ const layers = [
 ]
 
 const seaLayers = [
-  // { Component: SeaFloor3, speed: 0.38 },
-  // { Component: SeaFloor2, speed: 0.25 },
+  { Component: SeaFloor3, speed: 0.38 },
+  { Component: SeaFloor2, speed: 0.25 },
   { Component: SeaFloor1, speed: 0.13 },
 ]
 
@@ -99,6 +103,8 @@ function App() {
       <Foreground>
         {seaLayers.map(({ id, Component, speed }) =>
           <Component key={id} style={{ transform: `translateY(${scrollY * speed}px)` }} />)}
+        <Sword />
+        <Sand />
       </Foreground>
     </>
   )
